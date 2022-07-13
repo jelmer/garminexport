@@ -38,10 +38,14 @@ def parse_args() -> argparse.Namespace:
             "be downloaded."))
     # positional args
     parser.add_argument(
-        "username", metavar="<username>", type=str, help="Account user name.")
+        "username", metavar="<username>", type=str,
+        help="Account user name. (env: GARMIN_USERNAME or EMAIL)",
+        default=os.environ.get('GARMIN_USERNAME') or os.environ.get('EMAIL'),
+        nargs='?')
     # optional args
     parser.add_argument(
-        "--password", type=str, help="Account password.")
+        "--password", type=str, help="Account password (env: GARMIN_PASSWORD).",
+        default=os.environ.get('GARMIN_PASSWORD'))
     parser.add_argument(
         "--backup-dir", metavar="DIR", type=str,
         help="Destination directory for downloaded activities. Default: ./activities/",
